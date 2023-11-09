@@ -1,6 +1,25 @@
+<p-toast key="tst"></p-toast>
 <div class="col-12 xl:col-12">
     <div class="card">
-        <h5>Recent Sales</h5>
+        <p-dialog header="Dialog" [(visible)]="display" [modal]="true" showEffect="fade" [style]="{width: '30vw'}" [breakpoints]="{'960px': '75vw'}">
+            <div [formGroup]="doctorForm">
+                <label for="email1" class="block text-900 text-xl font-medium mb-2">Firstname</label>
+                <input id="email1" formControlName="first_name"  type="text"  placeholder="Firstname" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem">
+
+                <label for="email1" class="block text-900 text-xl font-medium mb-2">Lastname</label>
+                <input id="email1" formControlName="last_name"  type="text"  placeholder="Lastname" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem">
+
+                <label for="email1" class="block text-900 text-xl font-medium mb-2">Specialization</label>
+                <input id="email1" formControlName="specialization" type="text"   placeholder="Email address" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem">
+            </div>
+            <ng-template pTemplate="footer">
+                    <button pButton icon="pi pi-check" (click)="submit()" label="Sumit" class="p-button-outlined"></button>
+            </ng-template>
+        </p-dialog>
+        <div class="flex justify-content-between">
+            <h5>Recent Sales</h5>
+            <button pButton label="New Doctor" class= "mb-2" icon="pi pi-plus" (click)="display=true"></button>
+        </div>
         <p-table #dt1 [value]="customers1" dataKey="id" [rows]="10" [loading]="loading" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll">
             <ng-template pTemplate="caption">
                 <div class="flex justify-content-between flex-column sm:flex-row">
