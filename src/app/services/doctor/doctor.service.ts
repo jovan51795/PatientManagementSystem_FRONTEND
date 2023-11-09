@@ -10,13 +10,23 @@ import { IResponse } from 'src/app/interfaces/response';
 })
 export class DoctorService {
     constructor(private http: HttpClient) {}
+    token = sessionStorage.getItem('pms-user');
 
     save(doctor: IDoctor) {
-        const token = sessionStorage.getItem('pms-user');
         return this.http
             .post(`${env.PRIVATE_URL}/doctor`, doctor, {
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${this.token}`,
+                },
+            })
+            .pipe(tap((x: IResponse) => x));
+    }
+
+    getAllDoctors() {
+        return this.http
+            .get(`${env.PRIVATE_URL}/doctor`, {
+                headers: {
+                    Authorization: `Bearer ${this.token}`,
                 },
             })
             .pipe(tap((x: IResponse) => x));

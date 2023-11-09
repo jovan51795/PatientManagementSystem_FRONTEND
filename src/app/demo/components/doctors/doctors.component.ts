@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MenuItem, Message, MessageService } from 'primeng/api';
-import { Customer, Representative } from 'src/app/demo/api/customer';
 import { CustomerService } from 'src/app/demo/service/customer.service';
 import { Table } from 'primeng/table';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -13,16 +12,15 @@ import { DoctorService } from 'src/app/services/doctor/doctor.service';
     styleUrls: ['./doctors.component.scss'],
     providers: [MessageService],
 })
-export class DoctorsComponent {
+export class DoctorsComponent implements OnInit {
     items!: MenuItem[];
-    customers1: Customer[] = [];
+    doctors: Array<IDoctor> = [];
     loading: boolean = true;
     display: boolean = false;
     msgs: Message[] = [];
     @ViewChild('filter') filter!: ElementRef;
 
     constructor(
-        private customerService: CustomerService,
         private fb: FormBuilder,
         private doctorService: DoctorService,
         private service: MessageService
@@ -39,11 +37,22 @@ export class DoctorsComponent {
         const doctor: IDoctor = this.doctorForm.getRawValue() as IDoctor;
         this.doctorService.save(doctor).subscribe((data) => {
             if (data.status === 1) {
-                console.log(data);
                 this.showSuccessViaToast(data.message);
+                this.getAllDoctor();
             } else if (data.status === 0) {
                 this.showErrorViaToast(data.message);
             }
+            this.doctorForm.reset();
+        });
+    }
+
+    getAllDoctor() {
+        this.doctorService.getAllDoctors().subscribe((data) => {
+            if (data.status === 1) {
+                console.log(data);
+                this.doctors = data.data;
+            }
+            this.loading = false;
         });
     }
 
@@ -52,19 +61,12 @@ export class DoctorsComponent {
             { label: 'Add New', icon: 'pi pi-fw pi-plus' },
             { label: 'Remove', icon: 'pi pi-fw pi-minus' },
         ];
-        this.customerService.getCustomersLarge().then((customers) => {
-            this.customers1 = customers;
-            this.loading = false;
 
-            // @ts-ignore
-            this.customers1.forEach(
-                (customer) =>
-                    (customer.date = new Date(customer.date).toDateString())
-            );
-        });
+        this.getAllDoctor();
     }
 
     onGlobalFilter(table: Table, event: Event) {
+        console.log(table, event);
         table.filterGlobal(
             (event.target as HTMLInputElement).value,
             'contains'

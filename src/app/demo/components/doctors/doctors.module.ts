@@ -37,6 +37,7 @@ import { ToastModule } from 'primeng/toast';
         MessagesModule,
         MessageModule,
         ToastModule,
+        InputTextModule,
     ],
 })
 export class DoctorsModule {}
