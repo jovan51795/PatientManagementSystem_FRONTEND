@@ -56,6 +56,61 @@
         background: #FFD8B2;
         color: #805B36;
     }
+
+    &.status-ACTIVE {
+        background: #C8E6C9;
+        color: #256029;
+    }
+
+    &.status-DISCHARGED {
+        background: #B3E5FC;
+        color: #23547B;
+    }
+
+    &.status-ON_HOLD {
+        background: #FEEDAF;
+        color: #8A5340;
+    }
+
+    &.status-DECEASED {
+        background: #B3E5FC;
+        color: #23547B;
+    }
+
+    &.status-SCHEDULED {
+        background: #FFD8B2;
+        color: #805B36;
+    }
+
+    &.status-NO_SHOW {
+        background: #FEEDAF;
+        color: #8A5340;
+    }
+
+    &.status-CANCELLED {
+        background: #FFCDD2;
+        color: #C63737;
+    }
+
+    &.status-IN_TREATMENT {
+        background: #ECCFFF;
+        color: #694382;
+    }
+
+    &.status-RECOVERED {
+        background: #C8E6C9;
+        color: #256029;
+    }
+
+    &.status-CRITICAL {
+        background: #FFCDD2;
+        color: #C63737;
+    }
+
+    &.status-PENDING_ADMISSION {
+        background: #B3E5FC;
+        color: #23547B;
+    }
 }
 
 .order-badge {
