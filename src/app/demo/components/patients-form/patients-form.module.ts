@@ -9,6 +9,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ButtonModule } from 'primeng/button';
 import { SharedModule } from 'src/app/shared/shared/shared.module';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
     declarations: [PatientsFormComponent],
@@ -22,6 +23,7 @@ import { SharedModule } from 'src/app/shared/shared/shared.module';
         InputTextareaModule,
         ButtonModule,
         SharedModule,
+        ToastModule,
     ],
 })
 export class PatientsFormModule {}
