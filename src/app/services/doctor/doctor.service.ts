@@ -31,4 +31,24 @@ export class DoctorService {
             })
             .pipe(tap((x: IResponse) => x));
     }
+
+    delete(id: string) {
+        return this.http
+            .delete(`${env.PRIVATE_URL}/doctor/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${this.token}`,
+                },
+            })
+            .pipe(tap((data: IResponse) => data));
+    }
+
+    update(doctor: IDoctor) {
+        return this.http
+            .patch(`${env.PRIVATE_URL}/doctor`, doctor, {
+                headers: {
+                    Authorization: `Bearer ${this.token}`,
+                },
+            })
+            .pipe(tap((x: IResponse) => x));
+    }
 }

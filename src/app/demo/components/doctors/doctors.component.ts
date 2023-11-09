@@ -18,6 +18,10 @@ export class DoctorsComponent implements OnInit {
     loading: boolean = true;
     display: boolean = false;
     msgs: Message[] = [];
+    modalTitle: string = '';
+    updateForm: boolean = false;
+    deleteModal: boolean = false;
+    viewModal: boolean = false;
     @ViewChild('filter') filter!: ElementRef;
 
     constructor(
@@ -27,17 +31,23 @@ export class DoctorsComponent implements OnInit {
     ) {}
 
     public doctorForm = this.fb.group({
+        id: [''],
         first_name: ['', [Validators.required]],
         last_name: ['', [Validators.required]],
         specialization: ['', [Validators.required]],
     });
+
+    add(title: string) {
+        this.modalTitle = title;
+        this.display = true;
+    }
 
     submit() {
         this.display = false;
         const doctor: IDoctor = this.doctorForm.getRawValue() as IDoctor;
         this.doctorService.save(doctor).subscribe((data) => {
             if (data.status === 1) {
-                this.showSuccessViaToast(data.message);
+                this.showSuccessViaToast('Data ' + data.message);
                 this.getAllDoctor();
             } else if (data.status === 0) {
                 this.showErrorViaToast(data.message);
@@ -56,6 +66,46 @@ export class DoctorsComponent implements OnInit {
         });
     }
 
+    delete(id: string) {
+        this.doctorService.delete(id).subscribe((data) => {
+            if (data.status === 1) {
+                this.showSuccessViaToast(data.message);
+                this.getAllDoctor();
+            }
+            this.deleteModal = false;
+        });
+    }
+
+    update(doctor: IDoctor, title: string) {
+        this.updateForm = true;
+        this.modalTitle = title;
+        this.doctorForm.patchValue(doctor);
+        this.display = true;
+    }
+
+    updateDoctor() {
+        this.display = false;
+        const doctor: IDoctor = this.doctorForm.getRawValue() as IDoctor;
+        this.doctorService.update(doctor).subscribe((data) => {
+            if (data.status === 1) {
+                this.showSuccessViaToast('Data ' + data.message);
+                this.getAllDoctor();
+            } else if (data.status === 0) {
+                this.showErrorViaToast(data.message);
+            }
+            this.doctorForm.reset();
+        });
+    }
+    viewDetails(doctor: IDoctor) {
+        this.viewModal = true;
+        this.doctorForm.patchValue(doctor);
+        this.doctorForm.disable();
+        this.display = true;
+    }
+    closeViewModal() {
+        this.viewModal = false;
+        this.display = false;
+    }
     ngOnInit(): void {
         this.items = [
             { label: 'Add New', icon: 'pi pi-fw pi-plus' },
@@ -83,7 +133,7 @@ export class DoctorsComponent implements OnInit {
             key: 'tst',
             severity: 'success',
             summary: 'Message',
-            detail: 'Data ' + message,
+            detail: message,
         });
     }
 
