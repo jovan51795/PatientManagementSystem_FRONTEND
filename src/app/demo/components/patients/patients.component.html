@@ -1,6 +1,9 @@
 <div class="col-12 xl:col-12">
     <div class="card">
-        <h5>Recent Sales</h5>
+        <div class="flex justify-content-between">
+            <h5>Patients table</h5>
+            <button pButton label="New patient" class= "mb-2" icon="pi pi-plus" [routerLink]="['/patient/add']"></button>
+        </div>
         <p-table #dt1 [value]="customers1" dataKey="id" [rows]="10" [loading]="loading" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll">
             <ng-template pTemplate="caption">
                 <div class="flex justify-content-between flex-column sm:flex-row">

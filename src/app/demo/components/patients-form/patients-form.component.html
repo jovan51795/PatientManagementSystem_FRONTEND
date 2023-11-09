@@ -1,1 +1,92 @@
-<p>patients-form works!</p>
+<div class="grid p-fluid" [formGroup]="patientForm">
+
+    <div class="col-12 xl:col-6">
+        <div class="card p-fluid">
+            <h4>Patient Information</h4>
+            <div class="field">
+                <label htmlFor="name1">Firstname</label>
+                <input pInputText  type="text" autocomplete="none" formControlName="first_name"/>
+            </div>
+            <div class="field">
+                <label htmlFor="name1">Middlename</label>
+                <input pInputText  type="text" autocomplete="none" formControlName="middle_name"/>
+            </div>
+            <div class="field">
+                <label htmlFor="name1">Lastname</label>
+                <input pInputText  type="text" autocomplete="none" formControlName="last_name"/>
+            </div>
+            <div class="field">
+                <label htmlFor="name1">Bithday</label>
+                <input pInputText  type="date" autocomplete="none" formControlName="birthday"/>
+            </div>
+            <div class="field">
+                <label>Gender</label>
+                <div class="grid formgrid">
+                    <div class="col-12 md:col-4">
+                        <div class="field-radiobutton">
+                            <p-radioButton value="Male" formControlName="gender"></p-radioButton>
+                            <label >Male</label>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-4">
+                        <div class="field-radiobutton">
+                            <p-radioButton  value="Female" formControlName="gender"></p-radioButton>
+                            <label >Female</label>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-4">
+                        <div class="field-radiobutton">
+                            <p-radioButton value="other" formControlName="gender"></p-radioButton>
+                            <label >Other</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <label htmlFor="name1">Place of birth</label>
+                <input pInputText  type="text" autocomplete="none" formControlName="place_of_birth"/>
+            </div>
+            <div class="field">
+                <label htmlFor="name1">Contact number</label>
+                <input pInputText  type="text" autocomplete="none" formControlName="contact"/>
+            </div>
+            <div class="field">
+                <label htmlFor="name1">Emergency contact number</label>
+                <input pInputText  type="text" autocomplete="none" formControlName="emergency_contact"/>
+            </div>
+            <div class="field">
+                <label htmlFor="name1">Status</label>
+                <p-dropdown [options]="status"  placeholder="Status" [showClear]="true" formControlName="status"></p-dropdown>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 xl:col-6" formArrayName="patientRecords">
+        <div class="card p-fluid" *ngFor="let getPatientRecord of getPatientRecord.controls; let i = index"
+        [formGroupName]="i">
+            <h4>Patient Record</h4>
+            <div class="field">
+                <label htmlFor="name1">Prescriptions</label>
+                <input pInputText  type="text" autocomplete="none" formControlName="prescriptions"/>
+            </div>
+            <div class="field">
+                <label htmlFor="name1">Diagnoses</label>
+                <input pInputText  type="text" autocomplete="none" formControlName="diagnose"/>
+            </div>
+            <div class="field">
+                <label htmlFor="name1">Notes / Comments</label>
+                <textarea rows="5" cols="30" pInputTextarea autocomplete="none" formControlName="notes"></textarea>
+            </div>
+            <div class="field">
+                <label htmlFor="name1">Physician</label>
+                <p-dropdown [options]="doctors"  placeholder="Physician" optionLabel="fullname" [showClear]="true" autocomplete="none" formControlName="physician"></p-dropdown>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+<div class="flex justify-content-end mb-2 ">
+    <button pButton label="Submit" class="p-button-success xs:w-full" (click)="submit()"></button>
+</div>
+
