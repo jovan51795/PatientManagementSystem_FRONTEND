@@ -106,7 +106,7 @@
                             </p-dialog>
                             <button pButton class= "mb-2 p-button-danger p-button-rounded" icon="pi pi-trash" (click)="deleteModal = true"></button>
                             <button pButton class= "mb-2 p-button-success p-button-rounded" icon="pi pi-eye" [routerLink]="['/patient/details/' + patient.id]"></button>
-                            <button pButton class= "mb-2 p-button-info p-button-rounded" icon="pi pi-pencil" ></button>
+                            <button pButton class= "mb-2 p-button-info p-button-rounded" icon="pi pi-pencil" [routerLink]="['/patient/add/'+ patient.id]"></button>
                             <button pButton class= "mb-2 p-button-help p-button-rounded" icon="pi pi-folder" ></button>
                         </div>
                     </td>

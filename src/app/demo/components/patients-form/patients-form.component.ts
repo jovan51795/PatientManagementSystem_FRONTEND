@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { IDoctor } from 'src/app/interfaces/docker';
 import { IPatient } from 'src/app/interfaces/patient';
@@ -29,6 +30,8 @@ export class PatientsFormComponent implements OnInit {
     ];
 
     doctors: IDoctor[] = [];
+    isUpdate: boolean = false;
+    patientId: string = null;
     public patientForm = this.fb.group({
         id: [''],
         first_name: ['', [Validators.required]],
@@ -55,11 +58,19 @@ export class PatientsFormComponent implements OnInit {
         private doctorService: DoctorService,
         private fb: FormBuilder,
         private patientService: PatientService,
-        private service: MessageService
+        private service: MessageService,
+        private route: ActivatedRoute
     ) {}
 
     ngOnInit(): void {
         this.getAllDoctor();
+        this.route.paramMap.subscribe((x) => {
+            if (x.get('id')) {
+                this.patientId = x.get('id');
+                this.getPatientDetials(x.get('id'));
+                this.isUpdate = true;
+            }
+        });
     }
 
     getAllDoctor() {
@@ -70,11 +81,29 @@ export class PatientsFormComponent implements OnInit {
         });
     }
 
+    getPatientDetials(id: string) {
+        this.patientService.getDetails(id).subscribe((x) => {
+            if (x.status === 1) {
+                this.patientForm.patchValue(x.data);
+            }
+        });
+    }
+
     submit() {
         const patientData = this.patientForm.getRawValue() as IPatient;
         this.patientService.save(patientData).subscribe((x) => {
             if (x.status === 1) {
                 this.showSuccessViaToast(x.message);
+            }
+        });
+    }
+
+    update() {
+        const patientData = this.patientForm.getRawValue() as IPatient;
+        this.patientService.update(patientData).subscribe((x) => {
+            if (x.status === 1) {
+                this.showSuccessViaToast(x.message);
+                this.getPatientDetials(this.patientId);
             }
         });
     }

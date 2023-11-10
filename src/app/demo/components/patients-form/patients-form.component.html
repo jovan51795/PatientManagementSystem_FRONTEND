@@ -88,6 +88,15 @@
 
 </div>
 <div class="flex justify-content-end mb-2 ">
-    <button pButton label="Submit" class="p-button-success xs:w-full" (click)="submit()"></button>
+
+</div>
+<div class="grid p-fluid">
+    <div class="col-12 xl:col-6">
+        <button pButton label="Back" icon="pi pi-arrow-left" class="p-button-secondary" [routerLink]="['/patients']"></button>
+    </div>
+    <div class="col-12 xl:col-6">
+        <button pButton label="Submit" *ngIf="!isUpdate" class="p-button-success xs:w-full" (click)="submit()"></button>
+        <button pButton label="Update" icon="pi pi-pencil" *ngIf="isUpdate" class="p-button-success xs:w-full" (click)="update()"></button>
+    </div>
 </div>
 

@@ -33,6 +33,13 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
                                 ).then((m) => m.PatientsFormModule),
                         },
                         {
+                            path: 'patient/add/:id',
+                            loadChildren: () =>
+                                import(
+                                    './demo/components/patients-form/patients-form.module'
+                                ).then((m) => m.PatientsFormModule),
+                        },
+                        {
                             path: 'patient/details/:id',
                             loadChildren: () =>
                                 import(
