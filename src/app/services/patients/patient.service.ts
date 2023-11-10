@@ -50,4 +50,14 @@ export class PatientService {
             })
             .pipe(tap((x: IResponse) => x));
     }
+
+    getDetails(id: string) {
+        return this.http
+            .get(`${env.PRIVATE_URL}/patient/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${this.token}`,
+                },
+            })
+            .pipe(tap((x: IResponse) => x));
+    }
 }

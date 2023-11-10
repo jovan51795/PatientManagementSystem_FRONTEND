@@ -1,0 +1,89 @@
+<h4>PATIENT'S RECORD DETAILS</h4>
+<div class="grid p=fluid" *ngIf="patient">
+    <div class="col-12 xl:col-6">
+        <div class="card">
+            <h5>Patient's Information</h5>
+            <div class="field">
+                <label class="fw-bolder">Firstname</label>
+                <div >{{patient.first_name}}</div>
+            </div>
+            <div class="field">
+                <label class="fw-bolder">Middlename</label>
+                <div >{{patient.middle_name}}</div>
+            </div>
+            <div class="field">
+                <label class="fw-bolder">Lastname</label>
+                <div >{{patient.last_name}}</div>
+            </div>
+            <div class="field">
+                <label class="fw-bolder">Gender</label>
+                <div >{{patient.gender}}</div>
+            </div>
+            <div class="field">
+                <label class="fw-bolder">Birthday</label>
+                <div >{{patient.birthday}}</div>
+            </div>
+            <div class="field">
+                <label class="fw-bolder">Contact number</label>
+                <div >{{patient.contact}}</div>
+            </div>
+            <div class="field">
+                <label class="fw-bolder">Emergency contact number</label>
+                <div >{{patient.emergency_contact}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 xl:col-6">
+        <div class="grid p-fluid">
+            <div class="col-12 xl:col-12" *ngIf="record">
+                <div class="card">
+                    <h5>Latest Record</h5>
+                    <div class="field">
+                        <label class="fw-bolder">Status</label>
+                        <div >{{patient.status | formater}}</div>
+                    </div>
+                    <div class="field">
+                        <label class="fw-bolder">Diagnoses</label>
+                        <div >{{record.diagnose}}</div>
+                    </div>
+                    <div class="field">
+                        <label class="fw-bolder">Prescriptions</label>
+                        <div >{{record.prescriptions}}</div>
+                    </div>
+                    <div class="field">
+                        <label class="fw-bolder">Notes</label>
+                        <div >{{record.notes}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 xl:col-12" *ngIf="record">
+                <div class="card">
+                    <h5>Physician</h5>
+                    <div class="field">
+                        <label class="fw-bolder">Physician ID</label>
+                        <div >{{record.physician.id}}</div>
+                    </div>
+                    <div class="field">
+                        <label class="fw-bolder">Name</label>
+                        <div >{{record.physician.first_name + " " + record.physician.last_name}}</div>
+                    </div>
+                    <div class="field">
+                        <label class="fw-bolder">Specialization</label>
+                        <div >{{record.physician.specialization}}</div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="grid p-fluid">
+    <div class="col-12 xl:col-6">
+        <button pButton label="Back" class="p-button-secondary" [routerLink]="['/patients']"></button>
+    </div>
+    <div class="col-12 xl:col-6">
+        <button pButton label="View History" class="p-button-info"></button>
+    </div>
+</div>
