@@ -62,9 +62,10 @@
         </div>
     </div>
     <div class="col-12 xl:col-6" formArrayName="patientRecords">
-        <div class="card p-fluid" *ngFor="let getPatientRecord of getPatientRecord.controls; let i = index"
-        [formGroupName]="i">
+        <ng-container *ngFor="let getPatientRecord of getPatientRecord.controls; let i = index">
+            <div class="card p-fluid" [formGroupName]="i">
             <h4>Patient Record <small>(optional)</small></h4>
+
             <div class="field">
                 <label htmlFor="name1">Prescriptions</label>
                 <input pInputText  type="text" autocomplete="none" formControlName="prescriptions"/>
@@ -82,6 +83,22 @@
                 <p-dropdown [options]="doctors"  placeholder="Physician" optionLabel="fullname" [showClear]="true" autocomplete="none" formControlName="physician"></p-dropdown>
             </div>
         </div>
+        <div class="card p-fluid custom-card-j">
+            <div class="field">
+                <label htmlFor="name1">Upload file</label>
+                <p-fileUpload [showUploadButton]="false" name="demo[]" url="./upload.php" (onUpload)="onUpload($event)"
+                          [multiple]="true" accept="image/*" [maxFileSize]="1000000">
+                <ng-template pTemplate="content">
+                    <ul *ngIf="uploadedFiles.length">
+                        <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                    </ul>
+                </ng-template>
+            </p-fileUpload>
+
+            </div>
+        </div>
+        </ng-container>
+
     </div>
 
 

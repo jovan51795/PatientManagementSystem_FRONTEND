@@ -62,6 +62,20 @@ export class PatientsFormComponent implements OnInit {
         private route: ActivatedRoute
     ) {}
 
+    uploadedFiles: any[] = [];
+
+    onUpload(event: any) {
+        for (const file of event.files) {
+            this.uploadedFiles.push(file);
+        }
+
+        this.service.add({
+            severity: 'info',
+            summary: 'Success',
+            detail: 'File Uploaded',
+        });
+    }
+
     ngOnInit(): void {
         this.getAllDoctor();
         this.route.paramMap.subscribe((x) => {
