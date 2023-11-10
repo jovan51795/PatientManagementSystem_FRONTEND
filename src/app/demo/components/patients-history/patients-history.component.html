@@ -100,7 +100,10 @@
                     </div>
                     <div class="col-12 xl:col-4"  *ngFor="let f of record.file">
                         <div class="my-5">
-                            <img [src]="f.file" [alt]="f.filename" class="shadow-4" width="100%" style="aspect-ratio: 3/2; object-fit: cover;"/>
+                            <p-image [src]="f.file" [alt]="f.filename"   [imageStyle]="imageStyles"  width="250" [preview]="true">
+
+                            </p-image>
+                            <!-- <img   width="100%" /> -->
                         </div>
                     </div>
 

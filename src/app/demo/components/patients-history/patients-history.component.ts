@@ -14,6 +14,11 @@ export class PatientsHistoryComponent implements OnInit {
     patient: IPatient = undefined;
     files: any;
     loaded: boolean = false;
+
+    imageStyles = {
+        'aspect-ratio': '3/2',
+        'object-fit': 'cover',
+    };
     constructor(
         private route: ActivatedRoute,
         private router: Router,
