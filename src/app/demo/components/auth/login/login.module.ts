@@ -9,6 +9,9 @@ import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { SharedModule } from 'src/app/shared/shared/shared.module';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
     imports: [
@@ -19,10 +22,11 @@ import { SharedModule } from 'src/app/shared/shared/shared.module';
         InputTextModule,
         FormsModule,
         PasswordModule,
-        SharedModule
+        SharedModule,
+        MessagesModule,
+        MessageModule,
+        ToastModule,
     ],
-    declarations: [LoginComponent]
+    declarations: [LoginComponent],
 })
-export class LoginModule {
-
-}
+export class LoginModule {}
