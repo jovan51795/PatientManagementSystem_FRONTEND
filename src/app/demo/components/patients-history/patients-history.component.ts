@@ -21,9 +21,9 @@ export class PatientsHistoryComponent implements OnInit {
             this.getDetails(x.get('id'));
         });
     }
+
     getDetails(id: string) {
         this.patientService.getDetails(id).subscribe((data) => {
-            console.log(data);
             if (data.status === 1) {
                 this.patient = data.data;
             } else {

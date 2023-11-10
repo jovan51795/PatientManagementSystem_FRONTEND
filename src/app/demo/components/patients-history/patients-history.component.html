@@ -1,5 +1,5 @@
 <h5>Patient History</h5>
-<div class="grid p-fluid">
+<div class="grid p-fluid" *ngIf="patient">
     <div class="col-12">
         <div class="card p-fluid">
             <h5>Patient Information</h5>
@@ -51,11 +51,11 @@
     </div>
 </div>
 <h5>History</h5>
-<div class="grid p-fluid" *ngFor="let record of patient.patientRecords">
+<div class="grid p-fluid"  *ngFor="let record of patient.patientRecords">
     <div class="col-12">
         <div class="card p-fluid">
-            <h5>Physician</h5>
-            <div class="grid p-fluid">
+            <h5 *ngIf="record.physician">Physician</h5>
+            <div class="grid p-fluid" *ngIf="record.physician">
 
                 <div class="col-12 sm:col-6 lg:col-4 xl:col-4">
                     <div class="field">
@@ -73,16 +73,22 @@
             <h5>Record</h5>
             <div class="grid p-fluid">
 
-                <div class="col-12 sm:col-6 lg:col-6 xl:col-6">
+                <div class="col-12 sm:col-6 lg:col-6 xl:col-4">
                     <div class="field">
                         <label class="fw-bolder">Diagnoses</label>
                         <div >{{record.diagnose}}</div>
                     </div>
                 </div>
-                <div class="col-12 sm:col-6 lg:col-6 xl:col-6">
+                <div class="col-12 sm:col-6 lg:col-6 xl:col-4">
                     <div class="field">
                         <label class="fw-bolder">Prescriptions</label>
                         <div >{{record.prescriptions}}</div>
+                    </div>
+                </div>
+                <div class="col-12 sm:col-6 lg:col-6 xl:col-4">
+                    <div class="field">
+                        <label class="fw-bolder">Date</label>
+                        <div >{{record.date | dateFormat}}</div>
                     </div>
                 </div>
                 <div class="col-12">
@@ -91,6 +97,7 @@
                         <div >{{record.notes}}</div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
