@@ -1,0 +1,26 @@
+<p-toast key="tst"></p-toast>
+<div class="flex justify-content-center">
+    <div class="col-8">
+        <div class="card p-fluid" [formGroup]="record">
+            <h5>Add patient record</h5>
+            <div class="field">
+                <label>Prescriptions</label>
+                <input pInputText type="text" placeholder="Prescriptions" formControlName="prescriptions">
+            </div>
+            <div class="field">
+                <label>Diagnoses</label>
+                <input pInputText type="text" placeholder="Prescriptions" formControlName="diagnose">
+            </div>
+            <div class="field">
+                <label htmlFor="name1">Notes / Comments</label>
+                <textarea rows="5" cols="30" pInputTextarea autocomplete="none" formControlName="notes"></textarea>
+            </div>
+            <div class="field">
+                <label htmlFor="name1">Physician</label>
+                <p-dropdown [options]="doctors" formControlName="physician"  placeholder="Physician" optionLabel="fullname" [showClear]="true" autocomplete="none"></p-dropdown>
+            </div>
+        </div>
+        <button pButton label="Submit" class="w-full" (click)="addPatientRecord()"></button>
+    </div>
+
+</div>

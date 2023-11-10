@@ -20,13 +20,13 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(
             catchError((error: HttpErrorResponse) => {
                 console.log('the error', error);
-                alert('helo');
                 if (error.status === 403 || error.status === 401) {
-                    alert('jovanie');
-                    console.error(
-                        'Unauthorized or Forbidden access. Redirecting to login page.'
-                    );
+                    sessionStorage.removeItem('pms-user');
+                    window.location.href = '/#/auth/login';
                     // Redirect to the login page or perform other actions as needed
+                } else {
+                    alert('Unknown error occurred');
+                    console.error(error);
                 }
                 return throwError(error);
             })

@@ -54,6 +54,13 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
                                 ).then((m) => m.PatientsHistoryModule),
                         },
                         {
+                            path: 'patient/record/:id',
+                            loadChildren: () =>
+                                import(
+                                    './demo/components/record-form/record.module'
+                                ).then((m) => m.RecordModule),
+                        },
+                        {
                             path: 'doctors',
                             loadChildren: () =>
                                 import(

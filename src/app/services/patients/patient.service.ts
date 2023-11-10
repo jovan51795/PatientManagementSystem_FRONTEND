@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { env } from '../env';
-import { IPatient } from 'src/app/interfaces/patient';
+import { IPatient, IPatientRecord } from 'src/app/interfaces/patient';
 import { IResponse } from 'src/app/interfaces/response';
 import { tap } from 'rxjs';
 
@@ -54,6 +54,16 @@ export class PatientService {
     getDetails(id: string) {
         return this.http
             .get(`${env.PRIVATE_URL}/patient/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${this.token}`,
+                },
+            })
+            .pipe(tap((x: IResponse) => x));
+    }
+
+    addPatientRecord(id: string, record: IPatientRecord) {
+        return this.http
+            .patch(`${env.PRIVATE_URL}/record/${id}`, record, {
                 headers: {
                     Authorization: `Bearer ${this.token}`,
                 },

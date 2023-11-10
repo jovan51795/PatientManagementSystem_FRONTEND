@@ -17,7 +17,7 @@ export interface IPatient {
 
 export interface IPatientRecord {
     id?: number;
-    file: any;
+    file?: any;
     prescriptions?: string;
     notes?: string;
     diagnose?: string;
