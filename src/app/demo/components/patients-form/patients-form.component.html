@@ -6,19 +6,19 @@
             <h4>Patient Information</h4>
             <div class="field">
                 <label htmlFor="name1">Firstname</label>
-                <input pInputText  type="text" autocomplete="none" formControlName="first_name"/>
+                <input pInputText  type="text" autocomplete="none" class="ng-prestine" formControlName="first_name"/>
             </div>
             <div class="field">
                 <label htmlFor="name1">Middlename</label>
-                <input pInputText  type="text" autocomplete="none" formControlName="middle_name"/>
+                <input pInputText  type="text" autocomplete="none" class="ng-prestine" formControlName="middle_name"/>
             </div>
             <div class="field">
                 <label htmlFor="name1">Lastname</label>
-                <input pInputText  type="text" autocomplete="none" formControlName="last_name"/>
+                <input pInputText  type="text" autocomplete="none" class="ng-prestine" formControlName="last_name"/>
             </div>
             <div class="field">
                 <label htmlFor="name1">Bithday</label>
-                <input pInputText  type="date" autocomplete="none" formControlName="birthday"/>
+                <input pInputText  type="date" autocomplete="none" class="ng-prestine" formControlName="birthday"/>
             </div>
             <div class="field">
                 <label>Gender</label>
@@ -45,15 +45,15 @@
             </div>
             <div class="field">
                 <label htmlFor="name1">Place of birth</label>
-                <input pInputText  type="text" autocomplete="none" formControlName="place_of_birth"/>
+                <input pInputText  type="text" autocomplete="none" class="ng-prestine" formControlName="place_of_birth"/>
             </div>
             <div class="field">
                 <label htmlFor="name1">Contact number</label>
-                <input pInputText  type="text" autocomplete="none" formControlName="contact"/>
+                <input pInputText  type="text" autocomplete="none" class="ng-prestine" formControlName="contact"/>
             </div>
             <div class="field">
                 <label htmlFor="name1">Emergency contact number</label>
-                <input pInputText  type="text" autocomplete="none" formControlName="emergency_contact"/>
+                <input pInputText  type="text" autocomplete="none" class="ng-prestine" formControlName="emergency_contact"/>
             </div>
             <div class="field">
                 <label htmlFor="name1">Status</label>
@@ -64,7 +64,7 @@
     <div class="col-12 xl:col-6" formArrayName="patientRecords">
         <div class="card p-fluid" *ngFor="let getPatientRecord of getPatientRecord.controls; let i = index"
         [formGroupName]="i">
-            <h4>Patient Record</h4>
+            <h4>Patient Record <small>(optional)</small></h4>
             <div class="field">
                 <label htmlFor="name1">Prescriptions</label>
                 <input pInputText  type="text" autocomplete="none" formControlName="prescriptions"/>
@@ -95,8 +95,8 @@
         <button pButton label="Back" icon="pi pi-arrow-left" class="p-button-secondary" [routerLink]="['/patients']"></button>
     </div>
     <div class="col-12 xl:col-6">
-        <button pButton label="Submit" *ngIf="!isUpdate" class="p-button-success xs:w-full" (click)="submit()"></button>
-        <button pButton label="Update" icon="pi pi-pencil" *ngIf="isUpdate" class="p-button-success xs:w-full" (click)="update()"></button>
+        <button pButton label="Submit" [disabled]="!patientForm.valid" *ngIf="!isUpdate" class="p-button-success xs:w-full" (click)="submit()" ></button>
+        <button pButton label="Update" [disabled]="!patientForm.valid" icon="pi pi-pencil" *ngIf="isUpdate" class="p-button-success xs:w-full" (click)="update()"></button>
     </div>
 </div>
 

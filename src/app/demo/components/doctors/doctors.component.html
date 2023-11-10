@@ -5,18 +5,18 @@
         <p-dialog [header]="modalTitle" [(visible)]="display" [modal]="true" showEffect="fade" [style]="{width: '30vw'}" [breakpoints]="{'960px': '75vw'}">
             <div [formGroup]="doctorForm">
                 <label for="email1" class="block text-900 text-xl font-medium mb-2">Firstname</label>
-                <input id="email1"  formControlName="first_name"  type="text"  placeholder="Firstname" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem">
+                <input id="email1"  formControlName="first_name"  type="text"  placeholder="Firstname" pInputText class="w-full md:w-30rem mb-5 ng-prestine" style="padding:1rem">
 
                 <label for="email1" class="block text-900 text-xl font-medium mb-2">Lastname</label>
-                <input id="email1" formControlName="last_name"  type="text"  placeholder="Lastname" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem">
+                <input id="email1" formControlName="last_name"  type="text"  placeholder="Lastname" pInputText class="w-full md:w-30rem mb-5 ng-prestine" style="padding:1rem">
 
                 <label for="email1" class="block text-900 text-xl font-medium mb-2">Specialization</label>
-                <input id="email1" formControlName="specialization" type="text"   placeholder="Email address" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem">
+                <input id="email1" formControlName="specialization" type="text"   placeholder="Email address" pInputText class="w-full md:w-30rem mb-5 ng-prestine" style="padding:1rem">
             </div>
             <ng-template pTemplate="footer">
-                    <button pButton (click)="submit()" *ngIf="!updateForm && !viewModal" label="Submit" class="p-button-outlined"></button>
-                    <button pButton (click)="updateDoctor()" *ngIf="updateForm && !viewModal" label="Update" class="p-button-outlined"></button>
-                    <button pButton (click)="closeViewModal()" *ngIf="viewModal" label="Close" class="p-button-outlined"></button>
+                    <button pButton (click)="submit()" [disabled]="!doctorForm.valid" *ngIf="!updateForm && !viewModal" label="Submit" class="p-button-outlined"></button>
+                    <button pButton (click)="updateDoctor()" [disabled]="!doctorForm.valid" *ngIf="updateForm && !viewModal" label="Update" class="p-button-outlined"></button>
+                    <button pButton (click)="closeViewModal()"  *ngIf="viewModal" label="Close" class="p-button-outlined"></button>
 
             </ng-template>
         </p-dialog>
