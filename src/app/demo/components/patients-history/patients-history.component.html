@@ -51,53 +51,60 @@
     </div>
 </div>
 <h5>History</h5>
-<div class="grid p-fluid"  *ngFor="let record of patient.patientRecords">
-    <div class="col-12">
-        <div class="card p-fluid">
-            <h5 *ngIf="record.physician">Physician</h5>
-            <div class="grid p-fluid" *ngIf="record.physician">
+<div *ngIf="patient && patient.patientRecords">
+    <div class="grid p-fluid" *ngFor="let record of patient.patientRecords">
+        <div class="col-12">
+            <div class="card p-fluid">
+                <h5 *ngIf="record.physician">Physician</h5>
+                <div class="grid p-fluid" *ngIf="record.physician">
 
-                <div class="col-12 sm:col-6 lg:col-4 xl:col-4">
-                    <div class="field">
-                        <label class="fw-bolder">Name</label>
-                        <div >{{record.physician.fullname}}</div>
+                    <div class="col-12 sm:col-6 lg:col-4 xl:col-4">
+                        <div class="field">
+                            <label class="fw-bolder">Name</label>
+                            <div >{{record.physician.fullname}}</div>
+                        </div>
+                    </div>
+                    <div class="col-12 sm:col-6 lg:col-4 xl:col-4">
+                        <div class="field">
+                            <label class="fw-bolder">Specialization</label>
+                            <div >{{record.physician.specialization}}</div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-12 sm:col-6 lg:col-4 xl:col-4">
-                    <div class="field">
-                        <label class="fw-bolder">Specialization</label>
-                        <div >{{record.physician.specialization}}</div>
-                    </div>
-                </div>
-            </div>
-            <h5>Record</h5>
-            <div class="grid p-fluid">
+                <h5>Record</h5>
+                <div class="grid p-fluid">
 
-                <div class="col-12 sm:col-6 lg:col-6 xl:col-4">
-                    <div class="field">
-                        <label class="fw-bolder">Diagnoses</label>
-                        <div >{{record.diagnose}}</div>
+                    <div class="col-12 sm:col-6 lg:col-6 xl:col-4">
+                        <div class="field">
+                            <label class="fw-bolder">Diagnoses</label>
+                            <div >{{record.diagnose}}</div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-12 sm:col-6 lg:col-6 xl:col-4">
-                    <div class="field">
-                        <label class="fw-bolder">Prescriptions</label>
-                        <div >{{record.prescriptions}}</div>
+                    <div class="col-12 sm:col-6 lg:col-6 xl:col-4">
+                        <div class="field">
+                            <label class="fw-bolder">Prescriptions</label>
+                            <div >{{record.prescriptions}}</div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-12 sm:col-6 lg:col-6 xl:col-4">
-                    <div class="field">
-                        <label class="fw-bolder">Date</label>
-                        <div >{{record.date | dateFormat}}</div>
+                    <div class="col-12 sm:col-6 lg:col-6 xl:col-4">
+                        <div class="field">
+                            <label class="fw-bolder">Date</label>
+                            <div >{{record.date | dateFormat}}</div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-12">
-                    <div class="field">
-                        <label class="fw-bolder">Notes / Comments</label>
-                        <div >{{record.notes}}</div>
+                    <div class="col-12">
+                        <div class="field">
+                            <label class="fw-bolder">Notes / Comments</label>
+                            <div >{{record.notes}}</div>
+                        </div>
                     </div>
-                </div>
+                    <div class="col-12 xl:col-4"  *ngFor="let f of record.file">
+                        <div class="my-5">
+                            <img [src]="f.file" [alt]="f.filename" class="shadow-4" width="100%" style="aspect-ratio: 3/2; object-fit: cover;"/>
+                        </div>
+                    </div>
 
+                </div>
             </div>
         </div>
     </div>

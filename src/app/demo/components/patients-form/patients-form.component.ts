@@ -65,15 +65,16 @@ export class PatientsFormComponent implements OnInit {
     uploadedFiles: any[] = [];
 
     onUpload(event: any) {
+        console.log('hello');
         for (const file of event.files) {
             this.uploadedFiles.push(file);
         }
 
-        this.service.add({
-            severity: 'info',
-            summary: 'Success',
-            detail: 'File Uploaded',
-        });
+        // this.service.add({
+        //     severity: 'info',
+        //     summary: 'Success',
+        //     detail: 'File Uploaded',
+        // });
     }
 
     ngOnInit(): void {
@@ -104,8 +105,12 @@ export class PatientsFormComponent implements OnInit {
     }
 
     submit() {
+        const patientFile = new FormData();
+        for (let files of this.uploadedFiles) {
+            patientFile.append('file', files);
+        }
         const patientData = this.patientForm.getRawValue() as IPatient;
-        this.patientService.save(patientData).subscribe((x) => {
+        this.patientService.save(patientData, patientFile).subscribe((x) => {
             if (x.status === 1) {
                 this.showSuccessViaToast(x.message);
             }

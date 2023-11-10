@@ -1,7 +1,9 @@
+import { map } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IPatient } from 'src/app/interfaces/patient';
 import { PatientService } from 'src/app/services/patients/patient.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-patients-history',
@@ -10,10 +12,13 @@ import { PatientService } from 'src/app/services/patients/patient.service';
 })
 export class PatientsHistoryComponent implements OnInit {
     patient: IPatient = undefined;
+    files: any;
+    loaded: boolean = false;
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private patientService: PatientService
+        private patientService: PatientService,
+        private sanitizer: DomSanitizer
     ) {}
 
     ngOnInit(): void {
@@ -26,9 +31,25 @@ export class PatientsHistoryComponent implements OnInit {
         this.patientService.getDetails(id).subscribe((data) => {
             if (data.status === 1) {
                 this.patient = data.data;
+                this.convertToObjectUrl(data.data.patientRecords);
+                this.loaded = true;
             } else {
                 this.router.navigate(['/patients']);
             }
         });
+    }
+
+    convertToObjectUrl(patientRecords: any) {
+        if (patientRecords.length) {
+            patientRecords.forEach((record) => {
+                if (record.file && record.file.length) {
+                    record.file.forEach((file) => {
+                        let objectURL = 'data:image/png;base64,' + file.file;
+                        file.file =
+                            this.sanitizer.bypassSecurityTrustUrl(objectURL); //URL.createObjectURL(blob);
+                    });
+                }
+            });
+        }
     }
 }

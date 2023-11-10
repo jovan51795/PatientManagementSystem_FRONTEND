@@ -12,13 +12,29 @@ export class PatientService {
     constructor(private http: HttpClient) {}
     token = sessionStorage.getItem('pms-user');
 
-    save(data: IPatient) {
+    // save(data: IPatient) {
+    //     return this.http
+    //         .post(`${env.PRIVATE_URL}/patient`, data, {
+    //             headers: {
+    //                 Authorization: `Bearer ${this.token}`,
+    //             },
+    //         })
+    //         .pipe(tap((x: IResponse) => x));
+    // }
+
+    save(data: IPatient, files: FormData) {
         return this.http
-            .post(`${env.PRIVATE_URL}/patient`, data, {
-                headers: {
-                    Authorization: `Bearer ${this.token}`,
-                },
-            })
+            .post(
+                `${env.PRIVATE_URL}/patient?patient=${encodeURIComponent(
+                    JSON.stringify(data)
+                )}`,
+                files,
+                {
+                    headers: {
+                        Authorization: `Bearer ${this.token}`,
+                    },
+                }
+            )
             .pipe(tap((x: IResponse) => x));
     }
     delete(id: string) {
