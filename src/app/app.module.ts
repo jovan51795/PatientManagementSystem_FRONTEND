@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
@@ -13,23 +13,34 @@ import { IconService } from './demo/service/icon.service';
 import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
 import { SharedModule } from 'primeng/api';
+import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 
 @NgModule({
-    declarations: [
-        AppComponent, NotfoundComponent
-    ],
+    declarations: [AppComponent, NotfoundComponent],
     imports: [
         AppRoutingModule,
         AppLayoutModule,
         HttpClientModule,
-        SharedModule
-
+        SharedModule,
     ],
     providers: [
-        { provide: LocationStrategy, useClass: HashLocationStrategy },
-        CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService
+        {
+            provide: LocationStrategy,
+            useClass: HashLocationStrategy,
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: HttpErrorInterceptor,
+            multi: true,
+        },
+        CountryService,
+        CustomerService,
+        EventService,
+        IconService,
+        NodeService,
+        PhotoService,
+        ProductService,
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
