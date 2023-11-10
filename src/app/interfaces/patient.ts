@@ -5,7 +5,7 @@ export interface IPatient {
     first_name?: string;
     middle_name?: string;
     last_name?: string;
-    birthdat?: string;
+    birthday?: string;
     place_of_birth?: string;
     gender?: string;
     contact?: string;

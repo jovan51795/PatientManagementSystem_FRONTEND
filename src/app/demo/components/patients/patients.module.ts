@@ -14,6 +14,7 @@ import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ToastModule } from 'primeng/toast';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
     declarations: [PatientsComponent],
@@ -31,6 +32,7 @@ import { ToastModule } from 'primeng/toast';
         MessagesModule,
         OverlayPanelModule,
         ToastModule,
+        TooltipModule,
     ],
 })
 export class PatientsModule {}

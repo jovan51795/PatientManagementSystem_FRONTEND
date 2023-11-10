@@ -1,0 +1,97 @@
+<h5>Patient History</h5>
+<div class="grid p-fluid">
+    <div class="col-12">
+        <div class="card p-fluid">
+            <h5>Patient Information</h5>
+            <div class="grid p-fluid">
+                <div class="col-12 sm:col-6 lg:col-4 xl:col-3">
+                    <div class="field">
+                        <label class="fw-bolder">Firstname</label>
+                        <div >{{patient.first_name}}</div>
+                    </div>
+                </div>
+                <div class="col-12 sm:col-4 lg:col-3 xl:col-3">
+                    <div class="field">
+                        <label class="fw-bolder">Middlename</label>
+                        <div >{{patient.middle_name}}</div>
+                    </div>
+                </div>
+                <div class="col-12 sm:col-6 lg:col-4 xl:col-3 ">
+                    <div class="field">
+                        <label class="fw-bolder">Lastname</label>
+                        <div >{{patient.last_name}}</div>
+                    </div>
+                </div>
+                <div class="col-12 sm:col-6 lg:col-4 xl:col-3">
+                    <div class="field">
+                        <label class="fw-bolder">Gender</label>
+                        <div >{{patient.gender}}</div>
+                    </div>
+                </div>
+                <div class="col-12 sm:col-6 lg:col-4 xl:col-3">
+                    <div class="field">
+                        <label class="fw-bolder">Contact</label>
+                        <div >{{patient.contact}}</div>
+                    </div>
+                </div>
+                <div class="col-12 sm:col-6 lg:col-4 xl:col-3">
+                    <div class="field">
+                        <label class="fw-bolder">Emergency contact</label>
+                        <div >{{patient.emergency_contact}}</div>
+                    </div>
+                </div>
+                <div class="col-12 sm:col-6 lg:col-4 xl:col-3">
+                    <div class="field">
+                        <label class="fw-bolder">Birthday</label>
+                        <div >{{patient.birthday}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<h5>History</h5>
+<div class="grid p-fluid" *ngFor="let record of patient.patientRecords">
+    <div class="col-12">
+        <div class="card p-fluid">
+            <h5>Physician</h5>
+            <div class="grid p-fluid">
+
+                <div class="col-12 sm:col-6 lg:col-4 xl:col-4">
+                    <div class="field">
+                        <label class="fw-bolder">Name</label>
+                        <div >{{record.physician.fullname}}</div>
+                    </div>
+                </div>
+                <div class="col-12 sm:col-6 lg:col-4 xl:col-4">
+                    <div class="field">
+                        <label class="fw-bolder">Specialization</label>
+                        <div >{{record.physician.specialization}}</div>
+                    </div>
+                </div>
+            </div>
+            <h5>Record</h5>
+            <div class="grid p-fluid">
+
+                <div class="col-12 sm:col-6 lg:col-6 xl:col-6">
+                    <div class="field">
+                        <label class="fw-bolder">Diagnoses</label>
+                        <div >{{record.diagnoses}}</div>
+                    </div>
+                </div>
+                <div class="col-12 sm:col-6 lg:col-6 xl:col-6">
+                    <div class="field">
+                        <label class="fw-bolder">Prescriptions</label>
+                        <div >{{record.prescriptions}}</div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="field">
+                        <label class="fw-bolder">Notes / Comments</label>
+                        <div >{{record.notes}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
