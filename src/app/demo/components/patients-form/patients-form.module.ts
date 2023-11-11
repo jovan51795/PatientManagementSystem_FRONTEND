@@ -11,6 +11,7 @@ import { ButtonModule } from 'primeng/button';
 import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { ToastModule } from 'primeng/toast';
 import { FileUploadModule } from 'primeng/fileupload';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
     declarations: [PatientsFormComponent],
@@ -26,6 +27,7 @@ import { FileUploadModule } from 'primeng/fileupload';
         SharedModule,
         ToastModule,
         FileUploadModule,
+        InputNumberModule,
     ],
 })
 export class PatientsFormModule {}
