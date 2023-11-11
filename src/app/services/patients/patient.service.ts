@@ -134,4 +134,14 @@ export class PatientService {
             )
             .pipe(tap((x: IResponse) => x));
     }
+
+    getPatientStatusReport() {
+        return this.http
+            .get(`${env.PRIVATE_URL}/patient/status-report`, {
+                headers: {
+                    Authorization: `Bearer ${this.token}`,
+                },
+            })
+            .pipe(tap((x: IResponse) => x));
+    }
 }

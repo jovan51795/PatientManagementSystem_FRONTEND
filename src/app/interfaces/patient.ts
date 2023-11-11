@@ -23,3 +23,8 @@ export interface IPatientRecord {
     diagnose?: string;
     physician?: IDoctor;
 }
+
+export interface IStatusReport {
+    status?: string;
+    count?: number;
+}
