@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import {
+    AbstractControl,
+    FormArray,
+    FormBuilder,
+    Validators,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { IDoctor } from 'src/app/interfaces/docker';
@@ -37,7 +42,7 @@ export class PatientsFormComponent implements OnInit {
         first_name: ['', [Validators.required]],
         middle_name: ['', [Validators.required]],
         last_name: ['', [Validators.required]],
-        birthday: ['', [Validators.required]],
+        birthday: ['', [Validators.required, this.validateAge]],
         place_of_birth: ['', [Validators.required]],
         gender: ['', [Validators.required]],
         contact: ['', [Validators.required]],
@@ -70,6 +75,26 @@ export class PatientsFormComponent implements OnInit {
         }
     }
 
+    validateAge(control: AbstractControl): { [key: string]: boolean } | null {
+        if (control.value) {
+            const birthday = new Date(control.value);
+            const today = new Date();
+            const age = today.getFullYear() - birthday.getFullYear();
+            const monthDiff = today.getMonth() - birthday.getMonth();
+
+            if (
+                monthDiff < 0 ||
+                (monthDiff === 0 && today.getDate() < birthday.getDate())
+            ) {
+                return age - 1 < 15 ? { ageInvalid: true } : null;
+            }
+
+            return age < 15 ? { ageInvalid: true } : null;
+        }
+
+        return null;
+    }
+
     ngOnInit(): void {
         this.getAllDoctor();
         this.route.paramMap.subscribe((x) => {
@@ -92,7 +117,7 @@ export class PatientsFormComponent implements OnInit {
     getPatientDetials(id: string) {
         this.patientService.getDetails(id).subscribe((x) => {
             if (x.status === 1) {
-                console.log("details", x.data)
+                console.log('details', x.data);
                 const pd = { ...x.data };
                 this.getLatestRecord(pd);
             }
@@ -121,8 +146,6 @@ export class PatientsFormComponent implements OnInit {
 
         const patientData = this.patientForm.getRawValue() as IPatient;
 
-
-
         if (!this.uploadedFiles.length) {
             this.patientService.saveWithoutFile(patientData).subscribe((x) => {
                 if (x.status === 1) {
@@ -147,7 +170,6 @@ export class PatientsFormComponent implements OnInit {
             patientFile.append('file', files);
         }
         if (!this.uploadedFiles.length) {
-
             this.patientService
                 .updateWithoutFile(patientData)
                 .subscribe((x) => {
