@@ -92,6 +92,7 @@ export class PatientsFormComponent implements OnInit {
     getPatientDetials(id: string) {
         this.patientService.getDetails(id).subscribe((x) => {
             if (x.status === 1) {
+                console.log("details", x.data)
                 const pd = { ...x.data };
                 this.getLatestRecord(pd);
             }
@@ -100,13 +101,16 @@ export class PatientsFormComponent implements OnInit {
 
     patientRecordCopy: any = null;
     getLatestRecord(record: any) {
-        var patientRec = record;
-        this.patientRecordCopy = [...record.patientRecords];
-        const latest = record.patientRecords.reduce((maxItem, currentItem) =>
-            currentItem.id > maxItem.id ? currentItem : maxItem
-        );
-        patientRec.patientRecords = [latest];
-        this.patientForm.patchValue(patientRec);
+        if (record.patientRecords) {
+            var patientRec = record;
+            this.patientRecordCopy = [...record.patientRecords];
+            const latest = record.patientRecords.reduce(
+                (maxItem, currentItem) =>
+                    currentItem.id > maxItem.id ? currentItem : maxItem
+            );
+            patientRec.patientRecords = [latest];
+            this.patientForm.patchValue(patientRec);
+        }
     }
 
     submit() {
@@ -126,20 +130,40 @@ export class PatientsFormComponent implements OnInit {
 
     update() {
         var patientFile = new FormData();
+        const patientData = this.patientForm.getRawValue() as IPatient;
         for (let files of this.uploadedFiles) {
             patientFile.append('file', files);
         }
-        const patientData = this.patientForm.getRawValue() as IPatient;
-        this.patientService.update(patientData, patientFile).subscribe((x) => {
-            if (x.status === 1) {
-                this.showSuccessViaToast(x.message);
-                this.getPatientDetials(this.patientId);
-            }
-        });
+        if (!this.uploadedFiles.length) {
+            this.patientService
+                .updateWithoutFile(patientData)
+                .subscribe((x) => {
+                    if (x.status === 1) {
+                        this.showSuccessViaToast(x.message);
+                        this.getPatientDetials(this.patientId);
+                    }
+                });
+        } else {
+            this.patientService
+                .update(patientData, patientFile)
+                .subscribe((x) => {
+                    if (x.status === 1) {
+                        this.showSuccessViaToast(x.message);
+                        this.getPatientDetials(this.patientId);
+                    }
+                });
+        }
     }
 
     get getPatientRecord(): FormArray {
         return this.patientForm.get('patientRecords') as FormArray;
+    }
+
+    remove(e: any) {
+        this.uploadedFiles = this.uploadedFiles.filter(
+            (file) => file !== e.file
+        );
+        console.log('File removed:', e.file);
     }
 
     showSuccessViaToast(message: string) {

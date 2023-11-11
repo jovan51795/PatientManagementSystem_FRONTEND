@@ -65,6 +65,16 @@ export class PatientService {
             .pipe(tap((x: IResponse) => x));
     }
 
+    updateWithoutFile(patient: IPatient) {
+        return this.http
+            .patch(`${env.PRIVATE_URL}/patient/no-file`, patient, {
+                headers: {
+                    Authorization: `Bearer ${this.token}`,
+                },
+            })
+            .pipe(tap((x: IResponse) => x));
+    }
+
     getAllPatients() {
         return this.http
             .get(`${env.PRIVATE_URL}/patient`, {

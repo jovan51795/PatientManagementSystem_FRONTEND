@@ -86,7 +86,7 @@
         <div class="card p-fluid custom-card-j">
             <div class="field">
                 <label htmlFor="name1">Upload file</label>
-                <p-fileUpload [showUploadButton]="false" name="demo[]" url="./upload.php" (onSelect)="onUpload($event)"
+                <p-fileUpload [showUploadButton]="false" name="demo[]" (onRemove)="remove($event)" url="./upload.php" (onSelect)="onUpload($event)"
                           [multiple]="true" accept="image/*" [maxFileSize]="1000000">
                 <ng-template pTemplate="content">
                     <ul *ngIf="uploadedFiles.length">
