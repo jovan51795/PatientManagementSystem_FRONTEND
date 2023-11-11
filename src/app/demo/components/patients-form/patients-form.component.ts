@@ -121,11 +121,23 @@ export class PatientsFormComponent implements OnInit {
 
         const patientData = this.patientForm.getRawValue() as IPatient;
 
-        this.patientService.save(patientData, patientFile).subscribe((x) => {
-            if (x.status === 1) {
-                this.showSuccessViaToast(x.message);
-            }
-        });
+
+
+        if (!this.uploadedFiles.length) {
+            this.patientService.saveWithoutFile(patientData).subscribe((x) => {
+                if (x.status === 1) {
+                    this.showSuccessViaToast(x.message);
+                }
+            });
+        } else {
+            this.patientService
+                .save(patientData, patientFile)
+                .subscribe((x) => {
+                    if (x.status === 1) {
+                        this.showSuccessViaToast(x.message);
+                    }
+                });
+        }
     }
 
     update() {
@@ -135,6 +147,7 @@ export class PatientsFormComponent implements OnInit {
             patientFile.append('file', files);
         }
         if (!this.uploadedFiles.length) {
+
             this.patientService
                 .updateWithoutFile(patientData)
                 .subscribe((x) => {
@@ -144,6 +157,8 @@ export class PatientsFormComponent implements OnInit {
                     }
                 });
         } else {
+            patientData.patientRecords[0].file = null;
+            console.log('the patient data', patientData);
             this.patientService
                 .update(patientData, patientFile)
                 .subscribe((x) => {

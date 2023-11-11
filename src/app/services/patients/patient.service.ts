@@ -39,6 +39,16 @@ export class PatientService {
             )
             .pipe(tap((x: IResponse) => x));
     }
+
+    saveWithoutFile(data: IPatient) {
+        return this.http
+            .post(`${env.PRIVATE_URL}/patient/no-file`, data, {
+                headers: {
+                    Authorization: `Bearer ${this.token}`,
+                },
+            })
+            .pipe(tap((x: IResponse) => x));
+    }
     delete(id: string) {
         return this.http
             .delete(`${env.PRIVATE_URL}/patient/${id}`, {
