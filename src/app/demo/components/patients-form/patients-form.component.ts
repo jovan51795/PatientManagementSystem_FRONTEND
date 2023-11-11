@@ -65,16 +65,9 @@ export class PatientsFormComponent implements OnInit {
     uploadedFiles: any[] = [];
 
     onUpload(event: any) {
-        console.log('hello');
         for (const file of event.files) {
             this.uploadedFiles.push(file);
         }
-
-        // this.service.add({
-        //     severity: 'info',
-        //     summary: 'Success',
-        //     detail: 'File Uploaded',
-        // });
     }
 
     ngOnInit(): void {
@@ -99,9 +92,24 @@ export class PatientsFormComponent implements OnInit {
     getPatientDetials(id: string) {
         this.patientService.getDetails(id).subscribe((x) => {
             if (x.status === 1) {
-                this.patientForm.patchValue(x.data);
+                //this.patientForm.patchValue(x.data);
+
+                console.log('hey', x.data);
+                const pd = { ...x.data };
+                this.getLatestRecord(pd);
             }
         });
+    }
+
+    patientRecordCopy: any = null;
+    getLatestRecord(record: any) {
+        var patientRec = record;
+        this.patientRecordCopy = [...record.patientRecords];
+        const latest = record.patientRecords.reduce((maxItem, currentItem) =>
+            currentItem.id > maxItem.id ? currentItem : maxItem
+        );
+        patientRec.patientRecords = [latest];
+        this.patientForm.patchValue(patientRec);
     }
 
     submit() {
@@ -109,7 +117,9 @@ export class PatientsFormComponent implements OnInit {
         for (let files of this.uploadedFiles) {
             patientFile.append('file', files);
         }
+
         const patientData = this.patientForm.getRawValue() as IPatient;
+
         this.patientService.save(patientData, patientFile).subscribe((x) => {
             if (x.status === 1) {
                 this.showSuccessViaToast(x.message);
@@ -118,7 +128,17 @@ export class PatientsFormComponent implements OnInit {
     }
 
     update() {
-        const patientData = this.patientForm.getRawValue() as IPatient;
+        var patientData = this.patientForm.getRawValue() as IPatient;
+        if (this.patientRecordCopy) {
+            this.patientRecordCopy.map((p) => {
+                if (p.id !== patientData.patientRecords[0].id) {
+                    patientData.patientRecords = [
+                        ...patientData.patientRecords,
+                        p,
+                    ];
+                }
+            });
+        }
         this.patientService.update(patientData).subscribe((x) => {
             if (x.status === 1) {
                 this.showSuccessViaToast(x.message);

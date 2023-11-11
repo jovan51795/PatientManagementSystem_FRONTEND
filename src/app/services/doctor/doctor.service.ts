@@ -9,8 +9,10 @@ import { IResponse } from 'src/app/interfaces/response';
     providedIn: 'root',
 })
 export class DoctorService {
-    constructor(private http: HttpClient) {}
-    token = sessionStorage.getItem('pms-user');
+    constructor(private http: HttpClient) {
+        this.token = sessionStorage.getItem('pms-user');
+    }
+    token: any;
 
     save(doctor: IDoctor) {
         return this.http

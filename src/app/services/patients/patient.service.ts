@@ -9,8 +9,10 @@ import { tap } from 'rxjs';
     providedIn: 'root',
 })
 export class PatientService {
-    constructor(private http: HttpClient) {}
-    token = sessionStorage.getItem('pms-user');
+    constructor(private http: HttpClient) {
+        this.token = sessionStorage.getItem('pms-user');
+    }
+    token: any;
 
     // save(data: IPatient) {
     //     return this.http
