@@ -51,8 +51,29 @@ export class RecordFromComponent {
 
     addPatientRecord() {
         const patientRec = this.record.getRawValue() as IPatientRecord;
-        this.patientService
+        if (this.uploadedFiles.length) {
+            this.addPatientRecordWithFile(patientRec);
+        }
+        else {
+            this.patientService
             .addPatientRecord(this.patientId, patientRec)
+            .subscribe((x) => {
+                if (x.status === 1) {
+                    this.showSuccessViaToast(x.message);
+                } else if (x.status === 0) {
+                    this.showErrorViaToast(x.message);
+                }
+            });
+        }
+    }
+
+    addPatientRecordWithFile(recordData: IPatientRecord) {
+        var patientFile = new FormData();
+        for (let files of this.uploadedFiles) {
+            patientFile.append('file', files);
+        }
+        this.patientService
+            .addPatientRecordWithfile(this.patientId, recordData, patientFile)
             .subscribe((x) => {
                 if (x.status === 1) {
                     this.showSuccessViaToast(x.message);
@@ -78,5 +99,18 @@ export class RecordFromComponent {
             summary: 'Message',
             detail: message,
         });
+    }
+    uploadedFiles: any[] = [];
+
+    onUpload(event: any) {
+        for (const file of event.files) {
+            this.uploadedFiles.push(file);
+        }
+    }
+    remove(e: any) {
+        this.uploadedFiles = this.uploadedFiles.filter(
+            (file) => file !== e.file
+        );
+        console.log('File removed:', e.file);
     }
 }

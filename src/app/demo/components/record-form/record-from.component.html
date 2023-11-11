@@ -19,6 +19,16 @@
                 <label htmlFor="name1">Physician</label>
                 <p-dropdown [options]="doctors" formControlName="physician"  placeholder="Physician" optionLabel="fullname" [showClear]="true" autocomplete="none"></p-dropdown>
             </div>
+            <div class="field custom-card-j">
+                <label htmlFor="name1">Upload file</label>
+                <p-fileUpload [showUploadButton]="false" name="demo[]" (onRemove)="remove($event)" url="./upload.php" (onSelect)="onUpload($event)"
+                          [multiple]="true" accept="image/*" [maxFileSize]="1000000">
+                <ng-template pTemplate="content">
+                    <ul *ngIf="uploadedFiles.length">
+                        <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                    </ul>
+                </ng-template>
+            </p-fileUpload>
         </div>
         <button pButton label="Submit" [disabled]="!record.valid" class="w-full" (click)="addPatientRecord()"></button>
     </div>

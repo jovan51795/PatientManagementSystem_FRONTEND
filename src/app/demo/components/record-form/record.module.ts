@@ -11,6 +11,7 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
     declarations: [RecordFromComponent],
@@ -26,6 +27,7 @@ import { ButtonModule } from 'primeng/button';
         MessageModule,
         ToastModule,
         ButtonModule,
+        FileUploadModule,
     ],
 })
 export class RecordModule {}

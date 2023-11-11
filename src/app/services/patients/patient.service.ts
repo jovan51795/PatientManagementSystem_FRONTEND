@@ -114,4 +114,24 @@ export class PatientService {
             })
             .pipe(tap((x: IResponse) => x));
     }
+
+    addPatientRecordWithfile(
+        id: string,
+        record: IPatientRecord,
+        file: FormData
+    ) {
+        return this.http
+            .patch(
+                `${env.PRIVATE_URL}/record?id=${id}&record=${encodeURIComponent(
+                    JSON.stringify(record)
+                )}`,
+                file,
+                {
+                    headers: {
+                        Authorization: `Bearer ${this.token}`,
+                    },
+                }
+            )
+            .pipe(tap((x: IResponse) => x));
+    }
 }
