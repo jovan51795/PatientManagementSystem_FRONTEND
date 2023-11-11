@@ -49,13 +49,19 @@ export class PatientService {
             .pipe(tap((x: IResponse) => x));
     }
 
-    update(patient: IPatient) {
+    update(patient: IPatient, files: FormData) {
         return this.http
-            .patch(`${env.PRIVATE_URL}/patient`, patient, {
-                headers: {
-                    Authorization: `Bearer ${this.token}`,
-                },
-            })
+            .patch(
+                `${env.PRIVATE_URL}/patient?patient=${encodeURIComponent(
+                    JSON.stringify(patient)
+                )}`,
+                files,
+                {
+                    headers: {
+                        Authorization: `Bearer ${this.token}`,
+                    },
+                }
+            )
             .pipe(tap((x: IResponse) => x));
     }
 

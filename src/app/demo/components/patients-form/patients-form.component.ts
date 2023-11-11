@@ -92,9 +92,6 @@ export class PatientsFormComponent implements OnInit {
     getPatientDetials(id: string) {
         this.patientService.getDetails(id).subscribe((x) => {
             if (x.status === 1) {
-                //this.patientForm.patchValue(x.data);
-
-                console.log('hey', x.data);
                 const pd = { ...x.data };
                 this.getLatestRecord(pd);
             }
@@ -128,18 +125,12 @@ export class PatientsFormComponent implements OnInit {
     }
 
     update() {
-        var patientData = this.patientForm.getRawValue() as IPatient;
-        if (this.patientRecordCopy) {
-            this.patientRecordCopy.map((p) => {
-                if (p.id !== patientData.patientRecords[0].id) {
-                    patientData.patientRecords = [
-                        ...patientData.patientRecords,
-                        p,
-                    ];
-                }
-            });
+        var patientFile = new FormData();
+        for (let files of this.uploadedFiles) {
+            patientFile.append('file', files);
         }
-        this.patientService.update(patientData).subscribe((x) => {
+        const patientData = this.patientForm.getRawValue() as IPatient;
+        this.patientService.update(patientData, patientFile).subscribe((x) => {
             if (x.status === 1) {
                 this.showSuccessViaToast(x.message);
                 this.getPatientDetials(this.patientId);

@@ -33,7 +33,7 @@
             </div>
         </div>
     </div>
-    <div class="col-12 xl:col-6">
+    <div class="col-12 xl:col-6" >
         <div class="grid p-fluid">
             <div class="col-12 xl:col-12" *ngIf="record">
                 <div class="card">
@@ -56,7 +56,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 xl:col-12" *ngIf="record">
+            <div class="col-12 xl:col-12" *ngIf="record.physician">
                 <div class="card">
                     <h5>Physician</h5>
                     <div class="field">
@@ -79,7 +79,7 @@
     </div>
 
 </div>
-<div class="grid p-fluid">
+<div class="grid p-fluid" *ngIf="patient">
     <div class="col-12 xl:col-6">
         <button pButton label="Back" class="p-button-secondary" [routerLink]="['/patients']"></button>
     </div>

@@ -12,8 +12,9 @@ import { PatientService } from 'src/app/services/patients/patient.service';
     styleUrls: ['./patients-details.component.scss'],
 })
 export class PatientsDetailsComponent implements OnInit {
-    patient: IPatient = undefined;
-    record: IPatientRecord = undefined;
+    patient?: IPatient;
+    record?: IPatientRecord;
+    loaded: boolean = false;
     constructor(
         private route: ActivatedRoute,
         private router: Router,
@@ -30,6 +31,7 @@ export class PatientsDetailsComponent implements OnInit {
             console.log(data);
             if (data.status === 1) {
                 this.patient = data.data;
+                this.loaded = true;
                 this.getLatestRecord(data.data);
             } else {
                 this.router.navigate(['/patients']);
@@ -55,6 +57,5 @@ export class PatientsDetailsComponent implements OnInit {
 
         // Remove the record with the maximum id from patientRecords
         this.record = patientRecords.splice(indexOfRecordWithMaxId, 1)[0];
-        console.log(this.record);
     }
 }
