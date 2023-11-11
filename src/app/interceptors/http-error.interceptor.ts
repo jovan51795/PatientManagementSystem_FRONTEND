@@ -24,7 +24,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                 console.log('the error', error);
                 if (error.status === 403 || error.status === 401) {
                     sessionStorage.removeItem('pms-user');
-                    window.location.reload();
                     this.router.navigate(['/auth/login']);
                 } else {
                     alert('Unknown error occurred');

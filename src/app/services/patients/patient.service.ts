@@ -9,10 +9,7 @@ import { tap } from 'rxjs';
     providedIn: 'root',
 })
 export class PatientService {
-    constructor(private http: HttpClient) {
-        this.token = sessionStorage.getItem('pms-user');
-    }
-    token: any;
+    constructor(private http: HttpClient) {}
 
     // save(data: IPatient) {
     //     return this.http
@@ -33,7 +30,9 @@ export class PatientService {
                 files,
                 {
                     headers: {
-                        Authorization: `Bearer ${this.token}`,
+                        Authorization: `Bearer ${sessionStorage.getItem(
+                            'pms-user'
+                        )}`,
                     },
                 }
             )
@@ -44,7 +43,9 @@ export class PatientService {
         return this.http
             .post(`${env.PRIVATE_URL}/patient/no-file`, data, {
                 headers: {
-                    Authorization: `Bearer ${this.token}`,
+                    Authorization: `Bearer ${sessionStorage.getItem(
+                        'pms-user'
+                    )}`,
                 },
             })
             .pipe(tap((x: IResponse) => x));
@@ -53,7 +54,9 @@ export class PatientService {
         return this.http
             .delete(`${env.PRIVATE_URL}/patient/${id}`, {
                 headers: {
-                    Authorization: `Bearer ${this.token}`,
+                    Authorization: `Bearer ${sessionStorage.getItem(
+                        'pms-user'
+                    )}`,
                 },
             })
             .pipe(tap((x: IResponse) => x));
@@ -68,7 +71,9 @@ export class PatientService {
                 files,
                 {
                     headers: {
-                        Authorization: `Bearer ${this.token}`,
+                        Authorization: `Bearer ${sessionStorage.getItem(
+                            'pms-user'
+                        )}`,
                     },
                 }
             )
@@ -79,7 +84,9 @@ export class PatientService {
         return this.http
             .patch(`${env.PRIVATE_URL}/patient/no-file`, patient, {
                 headers: {
-                    Authorization: `Bearer ${this.token}`,
+                    Authorization: `Bearer ${sessionStorage.getItem(
+                        'pms-user'
+                    )}`,
                 },
             })
             .pipe(tap((x: IResponse) => x));
@@ -89,7 +96,9 @@ export class PatientService {
         return this.http
             .get(`${env.PRIVATE_URL}/patient`, {
                 headers: {
-                    Authorization: `Bearer ${this.token}`,
+                    Authorization: `Bearer ${sessionStorage.getItem(
+                        'pms-user'
+                    )}`,
                 },
             })
             .pipe(tap((x: IResponse) => x));
@@ -99,7 +108,9 @@ export class PatientService {
         return this.http
             .get(`${env.PRIVATE_URL}/patient/${id}`, {
                 headers: {
-                    Authorization: `Bearer ${this.token}`,
+                    Authorization: `Bearer ${sessionStorage.getItem(
+                        'pms-user'
+                    )}`,
                 },
             })
             .pipe(tap((x: IResponse) => x));
@@ -109,7 +120,9 @@ export class PatientService {
         return this.http
             .patch(`${env.PRIVATE_URL}/record/${id}`, record, {
                 headers: {
-                    Authorization: `Bearer ${this.token}`,
+                    Authorization: `Bearer ${sessionStorage.getItem(
+                        'pms-user'
+                    )}`,
                 },
             })
             .pipe(tap((x: IResponse) => x));
@@ -128,7 +141,9 @@ export class PatientService {
                 file,
                 {
                     headers: {
-                        Authorization: `Bearer ${this.token}`,
+                        Authorization: `Bearer ${sessionStorage.getItem(
+                            'pms-user'
+                        )}`,
                     },
                 }
             )
@@ -139,7 +154,9 @@ export class PatientService {
         return this.http
             .get(`${env.PRIVATE_URL}/patient/status-report`, {
                 headers: {
-                    Authorization: `Bearer ${this.token}`,
+                    Authorization: `Bearer ${sessionStorage.getItem(
+                        'pms-user'
+                    )}`,
                 },
             })
             .pipe(tap((x: IResponse) => x));

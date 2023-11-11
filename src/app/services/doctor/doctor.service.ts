@@ -10,15 +10,15 @@ import { IResponse } from 'src/app/interfaces/response';
 })
 export class DoctorService {
     constructor(private http: HttpClient) {
-        this.token = sessionStorage.getItem('pms-user');
     }
-    token: any;
 
     save(doctor: IDoctor) {
         return this.http
             .post(`${env.PRIVATE_URL}/doctor`, doctor, {
                 headers: {
-                    Authorization: `Bearer ${this.token}`,
+                    Authorization: `Bearer ${sessionStorage.getItem(
+                        'pms-user'
+                    )}`,
                 },
             })
             .pipe(tap((x: IResponse) => x));
@@ -28,7 +28,9 @@ export class DoctorService {
         return this.http
             .get(`${env.PRIVATE_URL}/doctor`, {
                 headers: {
-                    Authorization: `Bearer ${this.token}`,
+                    Authorization: `Bearer ${sessionStorage.getItem(
+                        'pms-user'
+                    )}`,
                 },
             })
             .pipe(tap((x: IResponse) => x));
@@ -38,7 +40,9 @@ export class DoctorService {
         return this.http
             .delete(`${env.PRIVATE_URL}/doctor/${id}`, {
                 headers: {
-                    Authorization: `Bearer ${this.token}`,
+                    Authorization: `Bearer ${sessionStorage.getItem(
+                        'pms-user'
+                    )}`,
                 },
             })
             .pipe(tap((data: IResponse) => data));
@@ -48,7 +52,9 @@ export class DoctorService {
         return this.http
             .patch(`${env.PRIVATE_URL}/doctor`, doctor, {
                 headers: {
-                    Authorization: `Bearer ${this.token}`,
+                    Authorization: `Bearer ${sessionStorage.getItem(
+                        'pms-user'
+                    )}`,
                 },
             })
             .pipe(tap((x: IResponse) => x));

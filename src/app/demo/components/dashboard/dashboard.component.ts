@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.getUserDetails();
+        //this.getUserDetails();
         this.getPatientStatusReport();
         this.initChart();
         this.productService
@@ -51,7 +51,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     getPatientStatusReport() {
         this.patientService.getPatientStatusReport().subscribe((x) => {
-            console.log('report', x.data);
             if (x.status === 1) {
                 this.patientStatusReport = x.data;
             }

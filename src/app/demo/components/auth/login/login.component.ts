@@ -41,6 +41,7 @@ export class LoginComponent {
         const user: User = this.userForm.getRawValue() as User;
         this.authService.login(user).subscribe(
             (data) => {
+
                 if (data.token) {
                     sessionStorage.setItem('pms-user', data.token);
                     this.showSuccessViaToast('Login successfull');
