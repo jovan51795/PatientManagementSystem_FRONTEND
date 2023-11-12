@@ -83,6 +83,13 @@ export class DoctorsComponent implements OnInit {
         this.display = true;
     }
 
+    onHide(e) {
+        this.deleteModal = false;
+        this.updateForm = false;
+        this.viewModal = false;
+        this.doctorForm.enable();
+    }
+
     updateDoctor() {
         this.display = false;
         const doctor: IDoctor = this.doctorForm.getRawValue() as IDoctor;
@@ -97,9 +104,11 @@ export class DoctorsComponent implements OnInit {
         });
     }
     viewDetails(doctor: IDoctor) {
+        this.modalTitle = 'View Details';
         this.viewModal = true;
         this.doctorForm.patchValue(doctor);
         this.doctorForm.disable();
+        //this.doctorForm.enable();
         this.display = true;
     }
     closeViewModal() {
