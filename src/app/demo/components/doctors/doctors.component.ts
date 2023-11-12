@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MenuItem, Message, MessageService } from 'primeng/api';
-import { CustomerService } from 'src/app/demo/service/customer.service';
 import { Table } from 'primeng/table';
 import { FormBuilder, Validators } from '@angular/forms';
 import { IDoctor } from 'src/app/interfaces/docker';
