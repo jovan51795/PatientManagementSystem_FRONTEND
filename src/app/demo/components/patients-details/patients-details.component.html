@@ -94,9 +94,9 @@
 </div>
 <div class="grid p-fluid" *ngIf="patient">
     <div class="col-12 xl:col-6">
-        <button pButton label="Back" class="p-button-secondary" [routerLink]="['/patients']"></button>
+        <button pButton label="Back" icon="pi pi-arrow-left" class="p-button-secondary" [routerLink]="['/patients']"></button>
     </div>
     <div class="col-12 xl:col-6">
-        <button pButton label="View History" class="p-button-info" [routerLink]="['/patient/history/' + patient.id]"></button>
+        <button pButton label="View History" icon="pi pi-folder" class="p-button-info" [routerLink]="['/patient/history/' + patient.id]"></button>
     </div>
 </div>

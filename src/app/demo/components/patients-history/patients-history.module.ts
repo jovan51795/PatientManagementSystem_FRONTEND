@@ -4,6 +4,7 @@ import { PatientsHistoryRoutingModule } from './patients-history-routing.module'
 import { PatientsHistoryComponent } from './patients-history.component';
 import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { ImageModule } from 'primeng/image';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
     declarations: [PatientsHistoryComponent],
@@ -12,6 +13,7 @@ import { ImageModule } from 'primeng/image';
         PatientsHistoryRoutingModule,
         SharedModule,
         ImageModule,
+        ButtonModule,
     ],
 })
 export class PatientsHistoryModule {}

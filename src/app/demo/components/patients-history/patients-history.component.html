@@ -112,3 +112,11 @@
         </div>
     </div>
 </div>
+<div class="grid p-fluid" *ngIf="patient">
+    <div class="col-12 xl:col-6">
+        <button pButton label="Back" icon="pi pi-arrow-left" class="p-button-secondary" [routerLink]="['/patients']"></button>
+    </div>
+    <div class="col-12 xl:col-6">
+        <button pButton label="Add Record" icon="pi pi-plus" class="p-button-info" [routerLink]="['/patient/record/' + patient.id]"></button>
+    </div>
+</div>
