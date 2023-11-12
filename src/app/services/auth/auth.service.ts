@@ -31,6 +31,6 @@ export class AuthService {
                     Authorization: `Bearer ${token}`,
                 },
             })
-            .pipe(tap((data: any) => data));
+            .pipe(tap((data: IResponse) => data));
     }
 }
