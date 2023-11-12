@@ -22,7 +22,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(
             catchError((error: HttpErrorResponse) => {
                 console.log('the error', error);
-                if (error.status === 403 || error.status === 401) {
+                if (
+                    error.status === 403 ||
+                    error.status === 401 ||
+                    error.status === 500
+                ) {
                     sessionStorage.removeItem('pms-user');
                     this.router.navigate(['/auth/login']);
                 } else {
