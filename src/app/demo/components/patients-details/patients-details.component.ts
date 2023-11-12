@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { IPatient, IPatientRecord } from 'src/app/interfaces/patient';
 import { IResponse } from 'src/app/interfaces/response';
@@ -18,25 +19,29 @@ export class PatientsDetailsComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private patientService: PatientService
+        private patientService: PatientService,
+        private sanitizer: DomSanitizer
     ) {}
     ngOnInit(): void {
-        this.route.paramMap.subscribe((x) => {
+        const paramtSubs = this.route.paramMap.subscribe((x) => {
             this.getDetails(x.get('id'));
         });
+        // this.subscriber$.add(paramtSubs);
     }
 
     getDetails(id: string) {
-        this.patientService.getDetails(id).subscribe((data) => {
-            console.log(data);
-            if (data.status === 1) {
-                this.patient = data.data;
-                this.loaded = true;
-                this.getLatestRecord(data.data);
-            } else {
-                this.router.navigate(['/patients']);
-            }
-        });
+        const detailsSubs = this.patientService
+            .getDetails(id)
+            .subscribe((data) => {
+                if (data.status === 1) {
+                    this.patient = data.data;
+                    this.loaded = true;
+                    this.getLatestRecord(data.data);
+                } else {
+                    this.router.navigate(['/patients']);
+                }
+            });
+        // this.subscriber$.add(detailsSubs);
     }
 
     getLatestRecord(patientDet: IPatient) {
@@ -55,7 +60,24 @@ export class PatientsDetailsComponent implements OnInit {
             0
         );
 
-        // Remove the record with the maximum id from patientRecords
         this.record = patientRecords.splice(indexOfRecordWithMaxId, 1)[0];
+        this.convertToObjectUrl(this.record);
     }
+
+    convertToObjectUrl(patientRecords: any) {
+        if (patientRecords) {
+            patientRecords.file.forEach((file) => {
+                let objectURL = 'data:image/png;base64,' + file.file;
+                file.file = this.sanitizer.bypassSecurityTrustUrl(objectURL); //URL.createObjectURL(blob);
+            });
+        }
+    }
+    imageStyles = {
+        'aspect-ratio': '3/2',
+        'object-fit': 'cover',
+    };
+
+    // ngOnDestroy(): void {
+    //     this.subscriber$.unsubscribe();
+    // }
 }

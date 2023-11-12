@@ -71,13 +71,26 @@
                         <label class="fw-bolder">Specialization</label>
                         <div >{{record.physician.specialization}}</div>
                     </div>
-
-
                 </div>
             </div>
+
         </div>
     </div>
 
+
+</div>
+<div class="card">
+    <h5>Files</h5>
+    <div class="grid">
+        <div class="col-12 xl:col-4" *ngFor="let f of record.file">
+            <div class="my-5">
+                <p-image [src]="f.file" [alt]="f.filename"   [imageStyle]="imageStyles"  width="250" [preview]="true">
+
+                </p-image>
+                <!-- <img   width="100%" /> -->
+            </div>
+        </div>
+    </div>
 </div>
 <div class="grid p-fluid" *ngIf="patient">
     <div class="col-12 xl:col-6">
