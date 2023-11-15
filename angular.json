@@ -24,7 +24,7 @@
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
                         "aot": true,
-                        "assets": ["src/favicon.ico", "src/assets"],
+                        "assets": ["src/logo.png", "src/assets"],
                         "styles": ["src/styles.scss"],
                         "scripts": [
                             "node_modules/prismjs/prism.js",
@@ -89,19 +89,14 @@
                     "builder": "@angular-devkit/build-angular:karma",
                     "options": {
                         "main": "src/test.ts",
-                        "polyfills": [
-                            "zone.js",
-                            "zone.js/testing"
-                        ],
+                        "polyfills": ["zone.js", "zone.js/testing"],
                         "tsConfig": "tsconfig.spec.json",
                         "karmaConfig": "karma.conf.js",
                         "inlineStyleLanguage": "scss",
-                        "styles": [
-                            "src/styles.scss"
-                        ],
+                        "styles": ["src/styles.scss"],
                         "scripts": [],
                         "assets": [
-                            "src/favicon.ico",
+                            "src/logo.png",
                             "src/upload.php",
                             "src/assets"
                         ]
