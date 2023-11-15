@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { Customer, Representative } from 'src/app/demo/api/customer';
-import { CustomerService } from 'src/app/demo/service/customer.service';
 import { Table } from 'primeng/table';
 import { PatientService } from 'src/app/services/patients/patient.service';
 import { IPatient } from 'src/app/interfaces/patient';

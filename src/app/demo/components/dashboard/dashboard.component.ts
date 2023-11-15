@@ -1,7 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { Product } from '../../api/product';
-import { ProductService } from '../../service/product.service';
 import { Subscription } from 'rxjs';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -14,8 +12,6 @@ import { IStatusReport } from 'src/app/interfaces/patient';
 export class DashboardComponent implements OnInit, OnDestroy {
     items!: MenuItem[];
 
-    products!: Product[];
-
     chartData: any;
 
     chartOptions: any;
@@ -25,7 +21,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     patientStatusReport: IStatusReport[] = [];
 
     constructor(
-        private productService: ProductService,
         public layoutService: LayoutService,
         private authService: AuthService,
         private patientService: PatientService
@@ -39,9 +34,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         //this.getUserDetails();
         this.getPatientStatusReport();
         this.initChart();
-        this.productService
-            .getProductsSmall()
-            .then((data) => (this.products = data));
 
         this.items = [
             { label: 'Add New', icon: 'pi pi-fw pi-plus' },
