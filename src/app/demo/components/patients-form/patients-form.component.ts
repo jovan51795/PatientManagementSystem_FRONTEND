@@ -86,10 +86,10 @@ export class PatientsFormComponent implements OnInit {
                 monthDiff < 0 ||
                 (monthDiff === 0 && today.getDate() < birthday.getDate())
             ) {
-                return age - 1 < 15 ? { ageInvalid: true } : null;
+                return age - 1 < 0 ? { ageInvalid: true } : null;
             }
 
-            return age < 15 ? { ageInvalid: true } : null;
+            return age < 0 ? { ageInvalid: true } : null;
         }
 
         return null;
