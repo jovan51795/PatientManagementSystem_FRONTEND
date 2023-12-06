@@ -42,6 +42,10 @@ export class PatientsHistoryComponent implements OnInit {
                 this.router.navigate(['/patients']);
             }
         });
+
+        setTimeout(() => {
+            console.log(this.patient);
+        }, 5000);
     }
 
     convertToObjectUrl(patientRecords: any) {

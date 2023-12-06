@@ -20,6 +20,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     patientStatusReport: IStatusReport[] = [];
 
+    monthOrder = {
+        January: 1,
+        February: 2,
+        March: 3,
+        April: 4,
+        May: 5,
+        June: 6,
+        July: 7,
+        August: 8,
+        September: 9,
+        October: 10,
+        November: 11,
+        December: 12,
+    };
+
     constructor(
         public layoutService: LayoutService,
         private authService: AuthService,
@@ -79,6 +94,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.patientService.getPatientStatusReport().subscribe((x) => {
             if (x.status === 1) {
                 console.log(x.data);
+                x.data?.chartData?.labels.sort(
+                    (a, b) => this.monthOrder[a] - this.monthOrder[b]
+                );
                 this.patientStatusReport = x.data.status;
                 x.data.chartData.datasets.map((m) => {
                     m.backgroundColor = eval(m.backgroundColor);
