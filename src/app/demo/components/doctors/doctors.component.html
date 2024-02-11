@@ -11,7 +11,7 @@
                 <input id="email1" formControlName="last_name"  type="text"  placeholder="Lastname" pInputText class="w-full md:w-30rem mb-5 ng-prestine" style="padding:1rem">
 
                 <label for="email1" class="block text-900 text-xl font-medium mb-2">Specialization</label>
-                <input id="email1" formControlName="specialization" type="text"   placeholder="Email address" pInputText class="w-full md:w-30rem mb-5 ng-prestine" style="padding:1rem">
+                <input id="email1" formControlName="specialization" type="text"   placeholder="Specialization" pInputText class="w-full md:w-30rem mb-5 ng-prestine" style="padding:1rem">
             </div>
             <ng-template pTemplate="footer">
                     <button pButton (click)="submit()" [disabled]="!doctorForm.valid" *ngIf="!updateForm && !viewModal" label="Submit" class="p-button-outlined"></button>
