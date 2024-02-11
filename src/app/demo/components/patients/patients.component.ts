@@ -40,16 +40,28 @@ export class PatientsComponent implements OnInit {
         });
     }
 
-    delete(id: string) {
-        this.patientService.delete(id).subscribe((data) => {
-            if (data.status === 1) {
-                this.showSuccessViaToast(data.message);
-                this.getAllPatients();
-            } else if (data.status === 2) {
-                this.showErrorViaToast(data.message);
-            }
-            this.deleteModal = false;
-        });
+    delete() {
+        if (this.deleteId) {
+            console.log(this.deleteId, 'this is the id');
+            this.patientService.delete(this.deleteId).subscribe((data) => {
+                if (data.status === 1) {
+                    this.showSuccessViaToast(data.message);
+                    this.getAllPatients();
+                } else if (data.status === 2) {
+                    this.showErrorViaToast(data.message);
+                }
+                this.deleteModal = false;
+                this.deleteId = '';
+            });
+        } else {
+            alert('Unknown error occured');
+        }
+    }
+
+    deleteId: string;
+    deleteData(id: string) {
+        this.deleteModal = true;
+        this.deleteId = id;
     }
 
     onGlobalFilter(table: Table, event: Event) {
